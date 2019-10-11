@@ -19,6 +19,6 @@ class Profile(models.Model):
 
 
 class Image(models.Model):
-#     profile = models.ForeignKey(Profile)
-#     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-#     like = models.ForeignKey(Like)    
+    profile = models.ForeignKey(Profile)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    like = models.ForeignKey(Like)    

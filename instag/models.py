@@ -18,7 +18,7 @@ class Profile(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
 
-# class Image(models.Model):
+class Image(models.Model):
 #     profile = models.ForeignKey(Profile)
 #     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 #     like = models.ForeignKey(Like)    

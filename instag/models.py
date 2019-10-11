@@ -8,8 +8,8 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-#     like = models.IntegerField()
-#     created_on = models.DateTimeField(auto_now_add=True)
+    like = models.IntegerField()
+    created_on = models.DateTimeField(auto_now_add=True)
 
 
 # class Profile(models.Model):

@@ -13,9 +13,9 @@ class Like(models.Model):
 
 
 class Profile(models.Model):
-#     photo = models.ImageField(upload_to='media')
-#     bio = models.TextField()
-#     created_on = models.DateTimeField(auto_now_add=True)
+    photo = models.ImageField(upload_to='media')
+    bio = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
 
 
 # class Image(models.Model):

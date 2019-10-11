@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import datetime as dt
 
 def home(request):
@@ -8,7 +8,7 @@ def posts(request):
     date = dt.date.today()
     return render(request, 'all-pages/posts.html', {'date':date})    
 
-def pastposts(request, past_date):
+def pastposts(request,past_date):
     try:
         # Converts data from the string Url
         date = dt.datetime.strptime(past_date, '%Y-%m-%d').date()

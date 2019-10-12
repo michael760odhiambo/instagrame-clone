@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 import datetime as dt
+from .models import Profile
 
 def home(request):
     return render(request, 'home.html')
@@ -22,5 +23,19 @@ def pastposts(request,past_date):
         return redirect(posts)
 
     return render(request, 'all-pages/pastposts.html', {'date':date})    
+
+
+def search_results(request):
+    
+    if 'profile' in request.GET and request.GET["profile"]:
+        search_term = request.GET.get("profile")
+        searched_profile = Profile.search_by_title(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'all-pages/search.html',{"message":message,"profile": searched_profile})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'all-pages/search.html',{"message":message})
 
 # Create your views here.

@@ -64,7 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.contrib.context_processors.media',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'insta',
+        'NAME': 'one',
         'USER': 'moringa',
         'PASSWORD':'mike1234',
     }
@@ -128,6 +128,4 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL ='/media/'
-MEDIA_ROOT = [
-    os.path.join(BASE_DIR, 'media')
-]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

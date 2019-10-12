@@ -3,6 +3,7 @@
 <div class="container">
 
   <div class="row">
+ {% for instag_item in instag %}
     {% if profile%}
       <h2>Found {{ profile|length }} of searched term {{message}}</h2>
     {% else %}
@@ -22,6 +23,8 @@
       </div>
     {% endfor %}
   {% endif %}
+ {% endfor %}
+
   </div>
 </div>
 {% endblock %}

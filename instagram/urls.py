@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('instag.urls')),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    #url(r'accounts/login/', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.logout, {"next_page": '/'}),
 ]

@@ -19,7 +19,7 @@
     {% for profile in profile %}
       <div class="col-sm-6 col-md-3">
           <h1>{{profile.title}}</h1>
-          <img src="{{photo.url}}" alt="">
+          <img class="card-img-top" src="{{profile.photo.url}}" alt="Card image cap" height="200px" width="200px">
           <p>{{profile.bio}}</p>
       </div>
     {% endfor %}

@@ -10,7 +10,9 @@ import datetime as dt
 def profile(request, profile_id):
     '''
     '''
+    return  HttpResponseRedirect('home')
 
+@login_required(login_url='/accounts/login/')
 def home(request):
     date = dt.date.today()
     instag = Profile.todays_posts()
@@ -27,14 +29,16 @@ def home(request):
 
             HttpResponseRedirect('home')
     else:
-        form = NewsLetterForm()
-    return render(request, 'home.html',{"date":date,"letterForm":form})
+         form = NewsLetterForm()
+    return render(request, 'home.html',  {"date": date,"instag":instag,"letterForm":form})
 
+@login_required
 def posts(request):
     date = dt.date.today()
     return render(request, 'all-pages/posts.html', {'date':date})    
 
-def pastposts(request,past_date):
+@login_required
+def pastposts(request, past_date):
     try:
         # Converts data from the string Url
         date = dt.datetime.strptime(past_date, '%Y-%m-%d').date()
@@ -47,9 +51,10 @@ def pastposts(request,past_date):
     if date == dt.date.today():
         return redirect(posts)
 
-    return render(request, 'all-pages/pastposts.html', {'date':date})    
+    return render(request, 'all-pages/pastposts.html', {'date':date,})    
 
 
+@login_required
 def search_results(request):
     
     if 'profile' in request.GET and request.GET["profile"]:
@@ -64,7 +69,8 @@ def search_results(request):
         return render(request, 'all-pages/search.html',{"message":message})
 
 
-
+def signup(request):
+    HttpResponseRedirect (request,'accounts/registration_form.html')
 
 
 

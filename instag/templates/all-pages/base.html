@@ -1,11 +1,8 @@
-
-{% load bootstrap3 %}
-{% load static%}
+{% load bootstrap3 %}{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-
+        <meta charset="utf-8">
         {% if title%}
            <title>instagram app - {{title}}</title>
         {% else %}
@@ -15,11 +12,23 @@
             {% bootstrap_css %}
             <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         {% endblock %}
+        <link href="https://fonts.googleapis.com/css?family=Cookie|Dancing+Script|Playball|Tangerine&display=swap" rel="stylesheet">
+
     </head>
     <body>
         <div class="container">
                 {% include "navbar.html" %}
                 {% block content%}
+                {% for post in posts %}
+                <div class="post">
+                    <div class="date">
+                        {{ post.published_date }}
+                    </div>
+                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+                </div>
+            {% endfor %}
 
                 {% endblock %}
 
@@ -28,10 +37,9 @@
         </div>
 
      {% block scripts %}
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-     {% bootstrap_javascript %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      {% bootstrap_javascript %}
+    
     {% endblock %}
     </body>
 </html>

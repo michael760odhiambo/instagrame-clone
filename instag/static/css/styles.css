@@ -1,3 +1,20 @@
 H1{
     color: blue;
 }
+
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+
+#one{
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Tangerine', cursive;
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Tangerine', cursive;
+    font-family: 'Playball', cursive;
+    font-family: 'Cookie', cursive;
+    color:black;
+    font-size: 50px;
+    font-size: bold;
+    font-style: italic;
+}

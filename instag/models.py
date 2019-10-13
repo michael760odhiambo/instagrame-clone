@@ -1,4 +1,5 @@
 from django.db import models
+import datetime as dt
 
 class Comment(models.Model):
      author = models.CharField(max_length=60)
@@ -24,6 +25,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+    @classmethod
+    def todays_posts(cls):
+        today = dt.date.today()
+        instag = cls.objects.filter(created_on=today)
+        return instag    
 
     @classmethod
     def search_by_title(cls,search_term):

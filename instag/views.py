@@ -1,12 +1,20 @@
 from django.shortcuts import render,redirect
-import datetime as dt
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 from .email import send_welcome_email
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from .forms import NewsLetterForm
+import datetime as dt
+
+@login_required(login_url='/accounts/login/')
+def profile(request, profile_id):
+    '''
+    '''
 
 def home(request):
+    date = dt.date.today()
+    instag = Profile.todays_posts()
+    form = NewsLetterForm() 
     if request.method == 'POST':
         form = NewsLetterForm(request.POST)
         if form.is_valid():
@@ -20,7 +28,7 @@ def home(request):
             HttpResponseRedirect('home')
     else:
         form = NewsLetterForm()
-    return render(request, 'home.html',{"date": date,"news":news,"letterForm":form})
+    return render(request, 'home.html',{"date":date,"letterForm":form})
 
 def posts(request):
     date = dt.date.today()
@@ -57,9 +65,6 @@ def search_results(request):
 
 
 
-@login_required(login_url='/accounts/login/')
-def profile(request, profile_id):
-    '''
-    '''
+
 
 

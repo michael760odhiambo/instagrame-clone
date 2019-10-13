@@ -36,4 +36,6 @@ class Image(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     like = models.ForeignKey(Like) 
 
-       
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()       

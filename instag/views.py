@@ -1,9 +1,26 @@
 from django.shortcuts import render,redirect
 import datetime as dt
 from .models import Profile
+from django.contrib.auth.decorators import login_required
+from .email import send_welcome_email
+from django.http import HttpResponse, Http404,HttpResponseRedirect
+from .forms import NewsLetterForm
 
 def home(request):
-    return render(request, 'home.html')
+    if request.method == 'POST':
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = NewsLetterRecipients(name = name,email =email)
+            recipient.save()
+
+            send_welcome_email(name,email)
+
+            HttpResponseRedirect('home')
+    else:
+        form = NewsLetterForm()
+    return render(request, 'home.html',{"date": date,"news":news,"letterForm":form})
 
 def posts(request):
     date = dt.date.today()
@@ -38,4 +55,11 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'all-pages/search.html',{"message":message})
 
-# Create your views here.
+
+
+@login_required(login_url='/accounts/login/')
+def profile(request, profile_id):
+    '''
+    '''
+
+

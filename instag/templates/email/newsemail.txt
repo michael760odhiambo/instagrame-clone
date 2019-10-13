@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to the instagra  newsletter You will find the most exciting news about mike's instagram

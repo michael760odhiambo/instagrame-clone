@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Profile
+#from .models import Profile
 from django.contrib.auth.decorators import login_required
 from .email import send_welcome_email
 from django.http import HttpResponse, Http404,HttpResponseRedirect
@@ -15,7 +15,7 @@ def profile(request, profile_id):
 @login_required(login_url='/accounts/login/')
 def home(request):
     date = dt.date.today()
-    instag = Profile.todays_posts()
+    #instag = Profile.todays_posts()
     form = NewsLetterForm() 
     if request.method == 'POST':
         form = NewsLetterForm(request.POST)
@@ -30,7 +30,7 @@ def home(request):
             HttpResponseRedirect('home')
     else:
          form = NewsLetterForm()
-    return render(request, 'home.html',  {"date": date,"instag":instag,"letterForm":form})
+    return render(request, 'home.html',  {"date": date,"letterForm":form})
 
 @login_required
 def posts(request):

@@ -13,6 +13,14 @@
                 <div class="col-md-6">
                        
                         <div class="card" style="width:600px">
+                            <div class="card-header">
+                                    <div class="media">
+                                            <img class="rounded-circle account-img" src="https://images.pexels.com/photos/1632790/pexels-photo-1632790.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" height="80px" width="80px" style="border-radius: 50px">
+                                            <div class="media-body">
+                                            <hr>
+                                            </div>
+                                          </div>
+                            </div>
                                 <img class="card-img-top" src="https://images.pexels.com/photos/1632790/pexels-photo-1632790.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image" style="width:100%">
                                 <i class="glyphicon glyphicon-user" style="font-size:30px;"></i>
                                 <i class="glyphicon glyphicon-scale" style="font-size:30px;"></i>
@@ -25,16 +33,6 @@
                                 </div>
                               </div>
 
-                              {% for post in posts %}
-                              <div class="post">
-                                  <div class="date">
-                                      {{ post.published_date }}
-                                  </div>
-                                  <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-                                  <p>{{ post.text|linebreaksbr }}</p>
-                                  <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
-                              </div>
-                          {% endfor %}
                              
                 </div>
                 <div class="col-md-4">

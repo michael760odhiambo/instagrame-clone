@@ -7,20 +7,18 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-5">
-           
+            <img src="https://thecybersafetylady.com.au/wp-content/uploads/2018/10/Screen-Shot-2018-10-05-at-2.09.37-pm-600x900.png" alt="" height="500px" width="300px">
         </div>
         <div class="col-md-5">
-            <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
-                  <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
-                  </ul>
-                </p>
-              </div>
+                {% if profile %}
+                {% for profile in profile %}
+                  <div class="col-sm-6 col-md-3">
+                      <h1>{{profile.title}}</h1>
+                      <img class="card-img-top" src="{{profile.photo.url}}" alt="Card image cap" height="200px" width="200px">
+                      <p>{{profile.bio}}</p>
+                  </div>
+                {% endfor %}
+              {% endif %}   
                   
         
         </div>

@@ -1,0 +1,59 @@
+{% extends 'all-pages/base.html' %}
+
+{% block content%}
+{{block.super}}
+           
+    {% for post in posts %}
+
+            <div class="post">
+                
+                
+               
+               
+                
+            </div>
+   
+
+    <div class="row">
+             
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-6">
+                   
+                    <div class="card" style="width:600px">
+                        <div class="card-header">
+                                <div class="media">
+                                    <hr>
+                                        <img class="rounded-circle account-img" src="https://images.pexels.com/photos/1632790/pexels-photo-1632790.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" height="80px" width="80px" style="border-radius: 50px">
+                                        <div class="media-body">
+                                        <hr>
+                                        </div>
+                                      </div>
+                        </div>
+                        <img src="{{post.photo.url}}" alt="" height="600px" width="100%"> 
+                            <i class="glyphicon glyphicon-user" style="font-size:30px;"></i>
+                            <i class="glyphicon glyphicon-scale" style="font-size:30px;"></i>
+                            <i class="glyphicon glyphicon-heart" style="font-size:30px;color:grey;"></i>
+                            <i class="glyphicon glyphicon-instagram" style="font-size:30px;color:lightblue;text-shadow:2px 2px 4px #000000;"></i>                              <div class="card-body">
+                            <h3><a href="{% url 'profile'  %}">{{ post.title }}</a></h4>
+                            <p>{{ post.bio|linebreaksbr }}</p>
+                              <div class="date">
+                                    {{ post.created_on }}
+                                </div>
+                                <a href="{% url 'profile'  %}">Comments: {{ post.comments.count }}</a>
+                            <a href="#" class="btn btn-primary">See Profile</a>
+                            </div>
+                          </div>
+
+                         
+            </div>
+            <div class="col-md-4">
+
+            </div>
+       
+        </div>
+
+  {% endfor %}
+
+{% endblock %}

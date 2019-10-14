@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Image,Like,Comment
+from .models import Image,Like,Comment,Profile
 
-#admin.site.register(Profile)
+admin.site.register(Profile)
 admin.site.register(Like)
 admin.site.register(Image)
 admin.site.register(Comment)

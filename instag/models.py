@@ -1,9 +1,11 @@
 from django.db import models
 import datetime as dt
+from django.contrib.auth.models import User
+#from annoying.fields import AutoOneToOneField
 
 class Comment(models.Model):
     post = models.ForeignKey('instag.Profile', on_delete=models.CASCADE, related_name='comments')
-    author = models.CharField(max_length=200)
+    author = models.CharField(User)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved_comment = models.BooleanField(default=False)

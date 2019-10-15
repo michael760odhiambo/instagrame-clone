@@ -21,6 +21,19 @@
           <h1>{{profile.title}}</h1>
           <img class="card-img-top" src="{{profile.photo.url}}" alt="Card image cap" height="200px" width="200px">
           <p>{{profile.bio}}</p>
+          <p>{{profile.created_on}}</p>
+          <div>
+              <button type="button" class="{{ status}} stat class="glyphicon glyphicon-like"" id="like"> <a href="{% url 'profile'  %}"><i
+                class="fa fa-heart-o  d-inline-flex icons" aria-hidden="true"><br>{{post.likes.count}}
+                likes</i> </a></button>
+           <hr> 
+          
+              <button type="button" class="{{status}} stat" id="comments" class="glyphicon glyphicon-comment"><a href="{% url 'profile'  %}">Comments: {{ post.comments.count }}</a></button>
+            </div>
+            <hr>
+            <div>
+              <a href="{% url 'comments'  %}" class="btn btn-primary">comment</a>
+            </div>
       </div>
     {% endfor %}
   {% endif %}

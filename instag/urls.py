@@ -10,7 +10,6 @@ urlpatterns = [
     url('^posts/', views.posts, name='posts'),
     url('^profile/', views.profile, name='profile'),
     url('^comments/', views.comments, name='comments'),
-    url('^pastposts/', views.pastposts, name='pastposts'),
     url(r'^search/', views.search_results, name='search_results'),
     url(r'^$', PostListView.as_view(), name='home'),
     url('post/(?P<pk>\d+)/', PostDetailView.as_view(), name='post-detail'),

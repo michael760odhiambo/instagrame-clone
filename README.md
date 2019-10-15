@@ -27,7 +27,7 @@
 
 * Press Enter. Your local clone will be created.
 
-$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+* $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 
 $ Cloning into Spoon-Knife...
 

@@ -1,7 +1,7 @@
  # Instagram-clone
 # Author
 # MICHAEL ODHIAMO
-Technologies used
+# Technologies used
 Django
 
 Python

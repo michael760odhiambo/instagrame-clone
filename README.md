@@ -1,10 +1,12 @@
  # Instagram-clone
 # Author
-# MICHAEL ODHIAMO
+* MICHAEL ODHIAMO
 # Technologies used
-Django
+* Django
 
-Python
+* Python
+* HTML
+* CSS
 
 Setup/Installation Instruction
 steps to follow

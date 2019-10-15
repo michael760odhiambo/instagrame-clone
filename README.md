@@ -1,6 +1,6 @@
  # Instagram-clone
 # Author
-MICHAEL ODHIAMO
+# MICHAEL ODHIAMO
 Technologies used
 Django
 

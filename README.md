@@ -8,7 +8,7 @@
 * HTML
 * CSS
 
-Setup/Installation Instruction
+# Setup/Installation Instruction
 steps to follow
 
 On GitHub, navigate to the main page of the repository.

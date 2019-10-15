@@ -1,5 +1,6 @@
 from django.db import models
 import datetime as dt
+from django.urls import reverse
 
 class Comment(models.Model):
     post = models.ForeignKey('instag.Profile', on_delete=models.CASCADE, related_name='comments')
@@ -32,6 +33,10 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.title)
 
+    def save_profile(self):
+        self.save()
+        
+            
     @classmethod
     def todays_posts(cls):
         today = dt.date.today()
@@ -41,8 +46,10 @@ class Profile(models.Model):
     @classmethod
     def search_by_title(cls,search_term):
         instag = cls.objects.filter(title__icontains=search_term)
-        return instag    
+        return instag
 
+    def get_absolute_url(self):
+            return reverse('post-detail', kwargs={'pk': self.pk})
 
 class Image(models.Model):
     profile = models.ForeignKey(Profile)

@@ -36,13 +36,21 @@
                             <i class="glyphicon glyphicon-scale" style="font-size:30px;"></i>
                             <i class="glyphicon glyphicon-heart" style="font-size:30px;color:grey;"></i>
                             <i class="glyphicon glyphicon-instagram" style="font-size:30px;color:lightblue;text-shadow:2px 2px 4px #000000;"></i>                              <div class="card-body">
-                            <h3><a href="{% url 'profile'  %}">{{ post.title }}</a></h4>
-                            <p>{{ post.bio|linebreaksbr }}</p>
+                            <h3><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h4>
+                            <div>
+                              <p>{{ post.bio|linebreaksbr }}</p>
+                            </div>
                               <div class="date">
                                     {{ post.created_on }}
                                 </div>
-                                <a href="{% url 'profile'  %}">Comments: {{ post.comments.count }}</a>
-                            <a href="#" class="btn btn-primary">See Profile</a>
+                               <div>
+                                <p class="article-content">{{ post.content }}</p> 
+                               </div>   
+                                <button type="button" class="{{ status}} stat" id="like"> <a href="{% url 'profile'  %}"><i
+                                  class="fa fa-heart-o  d-inline-flex icons" aria-hidden="true"><br>{{post.likes.count}}
+                                  likes</i> </a></button>
+                              <button type="button" class="{{status}} stat" id="comments" class="glyphicon glyphicon-comment"><a href="{% url 'profile'  %}">Comments: {{ post.comments.count }}</a></button>
+                            <a href="{% url 'comments'  %}" class="btn btn-primary">comment</a>
                             </div>
                           </div>
 

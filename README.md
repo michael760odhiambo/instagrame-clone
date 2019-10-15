@@ -1,4 +1,6 @@
  # Instagram-clone
+ * this application is a replica of instagram
+ 
 # Author
 * MICHAEL ODHIAMO
 # Technologies used

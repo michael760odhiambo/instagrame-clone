@@ -16,18 +16,15 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.contrib.auth import views
-from users import views as user_views
+#from users import views as user_views
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('instag.urls')),
+   # url(r'^tinymce/', include('tinymce.urls')),
+    url(r'',include('instag.urls')),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    #url(r'accounts/login/', views.LoginView.as_view(), name='login'),
+    url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', views.logout, {"next_page": '/'}),
-#    url('register/', user_views.register, name='register'),
-    # url('profile/', user_views.profile, name='profile'),
-    #url('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    #url('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
 ]

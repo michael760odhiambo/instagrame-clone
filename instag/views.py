@@ -1,140 +1,168 @@
-from django.shortcuts import render,redirect
-from .models import Profile
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .email import send_welcome_email
-from django.http import HttpResponse, Http404,HttpResponseRedirect
-from .forms import NewsLetterForm,CommentForm
-import datetime as dt
-from .models import Comment
+from . forms import ProfileUploadForm,CommentForm,ProfileForm,ImageForm
+from . models import Pic ,Profile, Likes, Follow, Comment,Unfollow
 
-Post = Profile
+
+
+@login_required(login_url='/accounts/login/')
+def  index(request):
+    title = 'Instagram'
+    pic_posts = Pic.objects.all()
+
+    return render(request, 'all-pages/index.html', {'title':title, 'pic_posts':pic_posts})
+
+
+@login_required(login_url='/accounts/login/')
+def comment(request,id):
+
+    post = get_object_or_404(Pic, id=id)
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.pic = post
+            comment.save()
+            return redirect('index')
+    else:
+        form = CommentForm()
+
+    return render(request, 'all-pages/comment.html', {'form':form})
+
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    '''
-    '''
-    context = {
-        'posts':Profile.objects.all()
-    }
-    return  render(request,'all-pages/profile.html',context)
+    current_user = request.user
+    profile = Profile.objects.all()
+    follower = Follow.objects.filter()
 
-class PostListView(ListView):
-    model = Post
-    template_name = 'home.html' 
-    context_object_name = 'posts'
-    ordering = ['-created_on']
-
-
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'all-pages/post_detail1.html'
-
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'bio','photo']
-    template_name = 'all-pages/post_form.html'
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Post
-    fields = ['title', 'bio']
-    
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
-
-
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Post
-    success_url = '/'
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
+    return render(request, 'all-pages/profile.html',{'current_user':current_user,'profile':profile,'follower':follower})
 
 @login_required(login_url='/accounts/login/')
-def home(request):
-    date = dt.date.today()
-    instag = Profile.todays_posts()
-    form = NewsLetterForm() 
-    if request.method == 'POST':
-        form = NewsLetterForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['your_name']
-            email = form.cleaned_data['email']
-            recipient = NewsLetterRecipients(name = name,email =email)
-            recipient.save()
+def timeline(request):
+    current_user = request.user
+    Myprofile = Profile.objects.order_by('-time_uploaded')
+    comment = Comment.objects.order_by('-time_comment')
 
-            send_welcome_email(name,email)
+    return render(request, 'timeline.html',{"Myprofile":Myprofile,"comment":comment,'current_user':current_user})
 
-            HttpResponseRedirect('home')
-    else:
-         form = NewsLetterForm()
-    return render(request, 'home.html',  {"date": date,"instag":instag,"letterForm":form})
+@login_required(login_url='/accounts/login/')
+def single_pic(request, pic_id):
+    pic = Pic.objects.get(id=pic_id)
 
-@login_required
-def posts(request):
-    date = dt.date.today()
-    return render(request, 'all-pages/posts.html', {'date':date})    
+    return render(request, 'single_pic.html',{"pic":pic})    
+@login_required(login_url='/accounts/login/')
+def like(request, pic_id):
+    pic = Pic.objects.get(id=pic_id)
+    like +=1
+    save_like()
+    return redirect(timeline)
 
-
-
-@login_required
+@login_required(login_url='/accounts/login/')
 def search_results(request):
-    
-    if 'profile' in request.GET and request.GET["profile"]:
-        search_term = request.GET.get("profile")
-        searched_profile = Profile.search_by_title(search_term)
-        message = f"{search_term}"
 
-        return render(request, 'all-pages/search.html',{"message":message,"profile": searched_profile})
+    if 'pic' in request.GET and request.GET['pic']:
+        search_term = request.GET.get('pic')
+        searched_profiles = Profile.search_profile(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'all-pages/search_pic.html',{"message":message,"pics": searched_profiles})
 
     else:
-        message = "You haven't searched for any term"
-        return render(request, 'all-pages/search.html',{"message":message})
+        message = "You have't searched for any term"
+        return render(request,'all-pages/search_pic.html',{"message":message})
+@login_required(login_url='/accounts/login/')
+
+def upload_profile(request):
+    current_user = request.user 
+    title = 'Upload Profile'
+    try:
+        requested_profile = Profile.objects.get(user_id = current_user.id)
+        if request.method == 'POST':
+            form = ProfileUploadForm(request.POST,request.FILES)
+
+            if form.is_valid():
+                requested_profile.profile_pic = form.cleaned_data['profile_pic']
+                requested_profile.bio = form.cleaned_data['bio']
+                requested_profile.username = form.cleaned_data['username']
+                requested_profile.save_profile()
+                return redirect( profile )
+        else:
+            form = ProfileUploadForm()
+    except:
+        if request.method == 'POST':
+            form = ProfileUploadForm(request.POST,request.FILES)
+
+            if form.is_valid():
+                new_profile = Profile(profile_pic = form.cleaned_data['profile_pic'],bio = form.cleaned_data['bio'],username = form.cleaned_data['username'])
+                new_profile.save_profile()
+                return redirect( profile )
+        else:
+            form = ProfileUploadForm()
 
 
-def signup(request):
-    HttpResponseRedirect (request,'accounts/registration_form.html')
+    return render(request,'all-pages/upload_profile.html',{"title":title,"current_user":current_user,"form":form})
 
 
 @login_required(login_url='/accounts/login/')
-def comments(request):
+def send(request):
+    '''
+    View function that displays a forms that allows users to upload images
+    '''
+    current_user = request.user
 
-    if request.method != 'POST':
+    if request.method == 'POST':
 
-        form = CommentForm()
-    else:
-        # Comment posted
-        form = CommentForm(data=request.POST)
+        form = ImageForm(request.POST ,request.FILES)
+
         if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.user = request.user
-            new_comment.profile = profile
-            form.save()
-            return HttpResponseRedirect(reverse('instag:profile'))    
-    '''
-    '''
-    context = {
-        'comments':Comment.objects.all()
-    }
-    return  render(request,'all-pages/comments.html',context)
+            image = form.save(commit = False)
+            image.user_key = current_user
+            image.likes +=0
+            image.save() 
+
+            return redirect( timeline)
+    else:
+        form = ImageForm() 
+    return render(request, 'send.html',{"form" : form})         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

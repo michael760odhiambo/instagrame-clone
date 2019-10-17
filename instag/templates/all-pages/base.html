@@ -1,36 +1,41 @@
-{% load bootstrap3 %}{% load static %}
+
+ 
+{% load bootstrap3 %}
+{% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        {% if title%}
-           <title>instagram app - {{title}}</title>
-        {% else %}
-           <title>instagram app</title>
-        {% endif%}
-        {% block styles %}
-            {% bootstrap_css %}
-            <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        {% endblock %}
-        <link href="https://fonts.googleapis.com/css?family=Cookie|Dancing+Script|Playball|Tangerine&display=swap" rel="stylesheet">
 
-    </head>
-    <body>
-        <div class="container">
-                {% include "navbar.html" %}
-                {% block content%}
-                
-
-                {% endblock %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+ 
+  
+ 
+  <title>{{title}}</title>
 
 
-                
-        </div>
+{% block styles %}
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
 
-     {% block scripts %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      {% bootstrap_javascript %}
-    
-    {% endblock %}
-    </body>
+</head>
+
+<body>
+{% include "navbar.html" %}
+
+{% block content %}
+{%endblock%}
+
+
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'script/main.js' %}"></script>
+    <script src="https://ucarecdn.com/libs/widget/3.2.2/uploadcare.min.js" charset="utf-8"></script>
+{% bootstrap_javascript %}
+{% endblock %}
+
+</body>
+
 </html>

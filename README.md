@@ -12,7 +12,7 @@
 
 # Setup/Installation Instruction
 
-* Install python version 3.6.3
+* Install python version 3.6.8
 
 * Install Heroku that helps to deploy your application.
 

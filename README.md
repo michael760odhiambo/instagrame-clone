@@ -16,7 +16,7 @@
 
 * Install Heroku that helps to deploy your application.
 
-* Clone https://github.com/michael760odhiambo/Instagram-Clone.git
+* Clone https://github.com/michael760odhiambo/instagram-Clone.git
 
 * Atleast have a computer or a laptop
 

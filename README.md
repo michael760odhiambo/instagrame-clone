@@ -11,7 +11,36 @@
 * CSS
 
 # Setup/Installation Instruction
-* steps to follow
+
+* Install python version 3.6.3
+
+* Install Heroku that helps to deploy your application.
+
+* Clone https://github.com/michael760odhiambo/Instagram-Clone.git
+
+* Atleast have a computer or a laptop
+
+* Have an internet connection
+
+* Visit https://django254.herokuapp.com/
+
+* install Django
+
+* $ pip install django==1.11
+
+* Create a virtual environment
+
+* $ sudo apt-get install python3.6-venv
+
+* $ python3.6 -m venv virtual
+
+* $ source virtual/bin/activate
+
+* Install gunicorn: (virtual)
+
+$ python3.6 -m pip install gunicorn
+
+* step2 to follow
 
 * On GitHub, navigate to the main page of the repository.
 
